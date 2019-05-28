@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Tip
+  - Titolo1
+  - DescMax1
+  - DescMin1
+  - Bool1
+  - Titolo2
+  - Titolo3
+  - Titolo4
+  - DescMax2
+  - DescMax3
+  - DescMax4
+  - Bool2
+  - Bool3
+  - Bool4
+  - DescMin2
+  - DescMin3
+  - DescMin4
+  - Caricatore
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - Spatial Mapping
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
