@@ -8,6 +8,10 @@ public class PannelloController : MonoBehaviour
     [SerializeField] GameObject testoCompletato;
     [SerializeField] GameObject smcModel;
 
+    [SerializeField] GameObject bool1;
+    [SerializeField] GameObject bool2;
+    [SerializeField] GameObject bool3;
+
     bool AriaChecked = false;
     bool CentralinaChecked = false;
     bool displayed = false;
@@ -32,12 +36,12 @@ public class PannelloController : MonoBehaviour
     public void LoadPezzo()
     {        
         Debug.Log("Pannello: Pezzo");
-        GameObject.FindWithTag("Bool1").GetComponent<TextMesh>().text = "ANCORA " + (3-PezzoController.pezziCaricati);
+        bool1.GetComponent<TextMesh>().text = "ANCORA " + (3-PezzoController.pezziCaricati);
 
         if (PezzoController.pezziCaricati >= 3)
         {
-            GameObject.FindWithTag("Bool1").GetComponent<TextMesh>().text = "OK";
-            GameObject.FindWithTag("Bool1").GetComponent<TextMesh>().color = Color.green;
+            bool1.GetComponent<TextMesh>().text = "OK";
+            bool1.GetComponent<TextMesh>().color = Color.green;
         }  
     }
 
@@ -48,8 +52,8 @@ public class PannelloController : MonoBehaviour
             if (!CentralinaChecked)
             {
                 Debug.Log("Pannello: Centralina");
-                GameObject.FindWithTag("Bool2").GetComponent<TextMesh>().text = "OK";
-                GameObject.FindWithTag("Bool2").GetComponent<TextMesh>().color = Color.green;
+                bool2.GetComponent<TextMesh>().text = "OK";
+                bool2.GetComponent<TextMesh>().color = Color.green;
 
                 CentralinaChecked = true;
             }
@@ -70,8 +74,8 @@ public class PannelloController : MonoBehaviour
                 {
                     AriaChecked = true;
                     Debug.Log("Pannello: Aria");
-                    GameObject.FindWithTag("Bool3").GetComponent<TextMesh>().text = "OK";
-                    GameObject.FindWithTag("Bool3").GetComponent<TextMesh>().color = Color.green;
+                    bool3.GetComponent<TextMesh>().text = "OK";
+                    bool3.GetComponent<TextMesh>().color = Color.green;
                 }
             }
         }

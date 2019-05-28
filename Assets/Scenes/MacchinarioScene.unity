@@ -2324,6 +2324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testoCompletato: {fileID: 1277508891}
   smcModel: {fileID: 1288209630}
+  bool1: {fileID: 1916783699}
+  bool2: {fileID: 1031260054}
+  bool3: {fileID: 392307564}
 --- !u!114 &1632513588
 MonoBehaviour:
   m_ObjectHideFlags: 0
