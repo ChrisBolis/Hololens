@@ -5,7 +5,7 @@
 # Write a line equal to 'overwrite-all' (without quotes) to overwrite everything (preserved accross builds)
 # Write a line equal to 'keep-all' (without quotes) to keep files regardless their modification (preserved accross builds)
 # Default behavior is to never overwrite files
-PROVAT.sln: D1A7E2FE90E1BBF5433F0CD333141EDC
+PROVAT.sln: DA0C15048A61564D01FAD871A7D2CE1D
 GeneratedProjects\UWP\Assembly-CSharp\project.json: 6F9D62D8351719C272AB5DF2AEC2A666
 GeneratedProjects\UWP\Unity.Analytics.DataPrivacy\project.json: 6F9D62D8351719C272AB5DF2AEC2A666
 GeneratedProjects\UWP\Unity.TextMeshPro\project.json: 6F9D62D8351719C272AB5DF2AEC2A666
@@ -14,7 +14,7 @@ PROVAT\App.cs: C42AE88970A5D2AA660FFEB7B1E06684
 PROVAT\AssemblyConverterArgs.txt: 76040346B99047C0ACC214E270AE001E
 PROVAT\Package.appxmanifest: 73E5E33C59E3B15405158F345A04E92C
 PROVAT\project.json: 6F9D62D8351719C272AB5DF2AEC2A666
-PROVAT\PROVAT.csproj: BE68E00C8EE533F5C1CCE43AD5B6B91D
+PROVAT\PROVAT.csproj: 45F9980CD3B00D326B56A5ED9499702A
 PROVAT\PROVAT.csproj.user: BEFB8AC4886C4CFDD3C68445D6F19B04
 PROVAT\Assets\SplashScreen.scale-200.png: A85C1D7624B6902CF8CEBD6F0200A826
 PROVAT\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084

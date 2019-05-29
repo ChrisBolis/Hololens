@@ -11,7 +11,7 @@ public class OnLoadMacchinario : MonoBehaviour
     {
         Mattonella = GameObject.FindWithTag("Mattonella");
 
-        Macchinario.transform.position = Mattonella.transform.position;
+        Macchinario.transform.position = Mattonella.transform.position;      
         //Macchinario.transform.position = new Vector3(Macchinario.transform.position.x, Macchinario.transform.position.y - Macchinario.transform.position.y / 2, Macchinario.transform.position.z);
 
         Macchinario.transform.rotation = Mattonella.transform.rotation;

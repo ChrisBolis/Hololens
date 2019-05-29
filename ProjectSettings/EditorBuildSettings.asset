@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 0c43e606663a0b94d9b9753c0996b422
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/MacchinarioScene.unity
-    guid: 031f48e64bee7dc4da3a2cd4ffe42c03
+    guid: cdd58b8c2600d084a860c7380e7e0bb1
   m_configObjects: {}

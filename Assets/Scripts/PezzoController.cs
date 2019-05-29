@@ -1,16 +1,18 @@
-﻿using System.Collections;
+﻿using HoloToolkit.Unity.InputModule;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PezzoController : MonoBehaviour
 {
     [SerializeField] GameObject caricatore;
+    //[SerializeField] GameObject Pannello;
+    [SerializeField] GameObject UIPezzi;
+
     [HideInInspector] public static int pezziCaricati = 0;
-    [SerializeField] GameObject Pannello;
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colpito!");
         if(collision.gameObject.tag == "Caricatore")
         {
             Debug.Log("Caricato!");
@@ -22,7 +24,14 @@ public class PezzoController : MonoBehaviour
             Debug.Log($"Pezzi caricati: {pezziCaricati}");
             transform.rotation = collision.gameObject.GetComponentInChildren<Transform>().rotation;
 
-            Pannello.GetComponent<PannelloController>().LoadPezzo();
+            gameObject.GetComponent<HandDraggable>().enabled = false;
+            //Pannello.GetComponent<PannelloController>().LoadPezzo();
         }
+
+        if (pezziCaricati <= 0)
+            UIPezzi.SetActive(true);
+
+        else
+            UIPezzi.SetActive(false);
     }
 }
