@@ -6,26 +6,31 @@ using UnityEngine;
 public class PezzoController : MonoBehaviour
 {
     [SerializeField] GameObject caricatore;
-    //[SerializeField] GameObject Pannello;
+    [SerializeField] GameObject spawner;
     [SerializeField] GameObject UIPezzi;
 
     [HideInInspector] public static int pezziCaricati = 0;
 
+    static GameObject[] elencoPezzi = new GameObject[13];
+
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Caricatore")
+        if(collision.gameObject.tag == "Caricatore" && pezziCaricati < 13)
         {
             Debug.Log("Caricato!");
-            transform.position = caricatore.GetComponent<Transform>().position;
 
-            transform.position = new Vector3(transform.position.x, transform.position.y + (gameObject.GetComponent<Renderer>().bounds.size.y + 0.003f) * pezziCaricati, transform.position.z);
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            pezziCaricati++;
-            Debug.Log($"Pezzi caricati: {pezziCaricati}");
+            transform.position = new Vector3(caricatore.transform.position.x, caricatore.transform.position.y + (transform.lossyScale.y + 0.001f) * pezziCaricati, caricatore.transform.position.z);
             transform.rotation = collision.gameObject.GetComponentInChildren<Transform>().rotation;
 
+            Instantiate(gameObject, spawner.transform.position, spawner.transform.rotation);
+
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<HandDraggable>().enabled = false;
-            //Pannello.GetComponent<PannelloController>().LoadPezzo();
+
+            elencoPezzi[pezziCaricati] = gameObject;
+            pezziCaricati++;
+
+            Debug.Log($"Pezzi caricati: {pezziCaricati}");
         }
 
         if (pezziCaricati <= 0)
@@ -33,5 +38,17 @@ public class PezzoController : MonoBehaviour
 
         else
             UIPezzi.SetActive(false);
+    }
+
+    public static void ScaricaPezzo()
+    {
+        if (pezziCaricati >= 0)
+        {
+            Destroy(elencoPezzi[pezziCaricati - 1]);
+            pezziCaricati--;
+
+            Debug.Log("Pezzo scaricato!");
+            Debug.Log($"Pezzi rimasti: {pezziCaricati}");
+        }
     }
 }

@@ -9,28 +9,40 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
     [SerializeField] GameObject UISwitch;
     [SerializeField] GameObject UIStart;
 
-
     [SerializeField] float rotation = 35f;
+
+    AudioSource audio;
+
+    void Start()
+    {
+        audio = gameObject.GetComponent<AudioSource>();
+    }
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
         Debug.Log("Cliccato");
 
-        if(!MacchinarioController.isSwitchTurned)
+        if(!MacchinarioController.isSwitchOn)
         {
             manopola.transform.Rotate(new Vector3(0f, 0f, rotation), Space.Self);
-            MacchinarioController.isSwitchTurned = true;
+            MacchinarioController.isSwitchOn = true;
 
             UISwitch.SetActive(false);
             UIStart.SetActive(true);
+
+            audio.Play();
         }
 
         else
         {
             manopola.transform.Rotate(new Vector3(0f, 0f, -rotation), Space.Self);
-            MacchinarioController.isSwitchTurned = false;
+            MacchinarioController.isSwitchOn = false;
+            MacchinarioController.isWorking = false;
 
+            UIStart.SetActive(false);
             UISwitch.SetActive(true);
+
+            audio.Play();
         }
     }
 

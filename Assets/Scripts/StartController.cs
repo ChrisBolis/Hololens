@@ -7,14 +7,23 @@ public class StartController : MonoBehaviour, IInputClickHandler, IFocusable
 {
     [SerializeField] GameObject UIStart;
 
+    AudioSource audio;
+
+    void Start()
+    {
+        audio = gameObject.GetComponent<AudioSource>();
+    }
+
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        if(MacchinarioController.isSwitchTurned)
+        if(MacchinarioController.isSwitchOn)
         {
             Debug.Log("Acceso!");
-            MacchinarioController.isOn = true;
+            MacchinarioController.isWorking = true;
             UIStart.SetActive(false);
         }
+
+        audio.Play();
     }
 
     public void OnFocusEnter()
