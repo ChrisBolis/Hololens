@@ -4,24 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/************************************* CONTROLLER PER LA GESTIONE DELLA CENTRALINA *************************************/
+
 public class Centralina : MonoBehaviour, IInputClickHandler, IFocusable
 {
-    [SerializeField] GameObject UIStato, testo, UIErrore;
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
+
+    // Campi riservati a questo script
+    [SerializeField] GameObject UIStato, testo;
     [SerializeField] float interval = 0.5f;
     [SerializeField] string messaggioDefault = "In funzione";
 
+    MasterController master;
     bool isFocused = false;
 
-    //[SerializeField] GameObject statoCentralina;
+    void Start()
+    {
+        master = masterController.GetComponent<MasterController>();
+    }
 
+    // Quando l'utente tappa sull'oggetto...
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        Debug.Log("Centralina");
+        // ...risolvi l'errore...
         SceneController.isErrorCentralina = false;
 
+        // ...e sistema l'interfaccia
         testo.GetComponent<TextMesh>().text = messaggioDefault;
-
-        UIErrore.SetActive(false);
+        master.errorUI.SetActive(false);
     }
 
     public void OnFocusEnter()
@@ -36,15 +47,19 @@ public class Centralina : MonoBehaviour, IInputClickHandler, IFocusable
         StartCoroutine(NascondiInterfaccia());
     }
 
+    // Metodi per la visualizzazione del tooltip
     IEnumerator MostraInterfaccia()
     {
         yield return new WaitForSeconds(interval);
+
         if (isFocused)
             UIStato.SetActive(true);
     }
+
     IEnumerator NascondiInterfaccia()
     {
         yield return new WaitForSeconds(interval);
+
         if (!isFocused)
             UIStato.SetActive(false);
 

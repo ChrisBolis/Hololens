@@ -4,52 +4,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/************************************* CONTROLLER PER LA GESTIONE DEL BLOCCO ARIA *************************************/
+
 public class Aria : MonoBehaviour, IInputClickHandler, IFocusable
 {
-    [SerializeField] GameObject UIStato, testo, UIErrore;
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
+
+    // Campi riservati a questo script
+    [SerializeField] GameObject statusUI, text;
     [SerializeField] float interval = 0.5f;
+    [SerializeField] string defaultMsg = "Pressione regolare";
 
-    [SerializeField] string messaggioDefault = "Pressione regolare";
-
-    //[SerializeField] GameObject statoAria;
-    //[SerializeField] string messaggioDefaultAria = "Pressione regolare";
-
-
+    MasterController master;
     bool isFocused = false;
+
+    void Start()
+    {
+        master = masterController.GetComponent<MasterController>();
+    }
     
+    // Quando l'utente tappa sull'oggetto...
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        Debug.Log("Aria");
+        // ...risolvi l'errore...
         SceneController.isErrorAria = false;
-
-        testo.GetComponent<TextMesh>().text = messaggioDefault;
-
-        UIErrore.SetActive(false);
+        
+        // ...e sistema l'interfaccia
+        text.GetComponent<TextMesh>().text = defaultMsg;
+        master.errorUI.SetActive(false);
     }
 
     public void OnFocusEnter()
     {
         isFocused = true;
-        StartCoroutine(MostraInterfaccia());
+        StartCoroutine(ShowInterface());
     }
 
     public void OnFocusExit()
     {
         isFocused = false;
-        StartCoroutine(NascondiInterfaccia());
+        StartCoroutine(HideInterface());
     }
 
-    IEnumerator MostraInterfaccia()
+    // Metodi per la visualizzazione del tooltip
+    IEnumerator ShowInterface()
     {
         yield return new WaitForSeconds(interval);
+
         if (isFocused)
-            UIStato.SetActive(true);
+            statusUI.SetActive(true);
 
     }
-    IEnumerator NascondiInterfaccia()
+
+    IEnumerator HideInterface()
     {
         yield return new WaitForSeconds(interval);
+
         if (!isFocused)
-            UIStato.SetActive(false);
+            statusUI.SetActive(false);
     }
 }

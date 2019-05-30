@@ -3,53 +3,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************************* CONTROLLER PER LA GESTIONE DELLA LOGICA DEI PEZZI *************************************/
+
 public class PezzoController : MonoBehaviour
 {
-    [SerializeField] GameObject caricatore;
-    [SerializeField] GameObject spawner;
-    [SerializeField] GameObject UIPezzi;
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
 
-    [HideInInspector] public static int pezziCaricati = 0;
+    // Campi riservati a questo script
+    MasterController master;
+    static GameObject[] piecesArray = new GameObject[13];
 
-    static GameObject[] elencoPezzi = new GameObject[13];
+    void Start()
+    {
+        master = masterController.GetComponent<MasterController>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Caricatore" && pezziCaricati <= 13)
+        if(collision.gameObject.tag == "Caricatore" && MasterController.loadedPieces <= 13)
         {
-            Debug.Log("Caricato!");
+            // Crea un nuovo pezzo
+            Instantiate(gameObject, master.spawner.transform.position, master.spawner.transform.rotation);
 
-            transform.position = new Vector3(caricatore.transform.position.x, caricatore.transform.position.y + (transform.lossyScale.y + 0.001f) * pezziCaricati, caricatore.transform.position.z);
-            transform.rotation = collision.gameObject.GetComponentInChildren<Transform>().rotation;
-
-            Instantiate(gameObject, spawner.transform.position, spawner.transform.rotation);
-
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.GetComponent<HandDraggable>().enabled = false;
-
-            elencoPezzi[pezziCaricati] = gameObject;
-            pezziCaricati++;
-
-            Debug.Log($"Pezzi caricati: {pezziCaricati}");
+            loadPiece();
         }
-
-        if (pezziCaricati <= 0)
-            UIPezzi.SetActive(true);
-
-        else
-            UIPezzi.SetActive(false);
     }
+
+    //********** METODI PUBBLICI **********
 
     public static int ScaricaPezzo()
     {
-        if (pezziCaricati > 0)
+        if (MasterController.loadedPieces > 0)
         {
-            Destroy(elencoPezzi[pezziCaricati - 1]);
-            pezziCaricati--;
+            Destroy(piecesArray[MasterController.loadedPieces - 1]);
+            MasterController.loadedPieces--;
 
             SceneController.audio.Play();
         }
 
-        return pezziCaricati;
+        return MasterController.loadedPieces;
+    }
+
+    //********** METODI PRIVATI **********
+
+    void loadPiece()
+    {
+        // Posiziona il pezzo nel macchinario...
+        transform.position = new Vector3(master.loader.transform.position.x, master.loader.transform.position.y + (transform.lossyScale.y + 0.001f) * MasterController.loadedPieces, 
+            master.loader.transform.position.z);
+        transform.rotation = master.loader.GetComponent<Transform>().rotation;
+
+        // ...disattiva la fisica
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.GetComponent<HandDraggable>().enabled = false;
+
+        // ...e registralo
+        piecesArray[MasterController.loadedPieces] = gameObject;
+        MasterController.loadedPieces++;
     }
 }

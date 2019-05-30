@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.50224054, g: 0.5020953, b: 0.501867, a: 1}
+  m_IndirectSpecularColor: {r: 0.50217825, g: 0.5020953, b: 0.5018046, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -235,11 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d9d91d120aa42429a9768266d6cb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIStato: {fileID: 2113904352}
-  testo: {fileID: 1501058919}
-  UIErrore: {fileID: 1123400315}
+  masterController: {fileID: 553070462}
+  statusUI: {fileID: 2113904352}
+  text: {fileID: 1501058919}
   interval: 0.5
-  messaggioDefault: Pressione regolare
+  defaultMsg: Pressione regolare
 --- !u!65 &4289817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -464,7 +464,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1049312321}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &186745100
 AudioSource:
@@ -1210,8 +1210,9 @@ GameObject:
   - component: {fileID: 553070464}
   - component: {fileID: 553070463}
   - component: {fileID: 553070466}
+  - component: {fileID: 553070465}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,7 +1230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b132be67fcad847bd8757b60f278ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Macchinario: {fileID: 553070462}
 --- !u!4 &553070464
 Transform:
   m_ObjectHideFlags: 0
@@ -1248,6 +1248,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553070465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553070462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438488deca8026f4ea4fb6023e99f5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorUI: {fileID: 1123400315}
+  piecesUI: {fileID: 251475347}
+  switchUI: {fileID: 819771889}
+  startUI: {fileID: 297225214}
+  loader: {fileID: 186745098}
+  spawner: {fileID: 274016322}
 --- !u!114 &553070466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,9 +1333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0456990ded37fd24195531b05e8062e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterController: {fileID: 553070462}
   UIStato: {fileID: 1762670180}
   testo: {fileID: 734412841}
-  UIErrore: {fileID: 1123400315}
   interval: 0.5
   messaggioDefault: In funzione
 --- !u!65 &555138563
@@ -2064,7 +2082,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132602, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_Name
-      value: PezzoMeccanico (1)
+      value: PezzoMeccanico_1
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -2104,7 +2122,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -2124,7 +2142,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.046393525
+      value: 0.04639352
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -2134,7 +2152,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.046393525
+      value: 0.04639352
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132580, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -2156,6 +2174,11 @@ PrefabInstance:
       propertyPath: spawner
       value: 
       objectReference: {fileID: 274016322}
+    - target: {fileID: 8603307294315132580, guid: dfa8241e689cad84fa98f33175ec3089,
+        type: 3}
+      propertyPath: masterController
+      value: 
+      objectReference: {fileID: 553070462}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa8241e689cad84fa98f33175ec3089, type: 3}
 --- !u!1 &905418089
@@ -2542,7 +2565,7 @@ GameObject:
   - component: {fileID: 1123400318}
   - component: {fileID: 1123400317}
   m_Layer: 0
-  m_Name: Errori
+  m_Name: Errore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2923,7 +2946,6 @@ GameObject:
   - component: {fileID: 1573591805}
   - component: {fileID: 1573591804}
   - component: {fileID: 1573591803}
-  - component: {fileID: 1573591806}
   m_Layer: 0
   m_Name: PartsPlane
   m_TagString: Untagged
@@ -3004,24 +3026,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573591801}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1573591806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573591801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5a0a60fbe897549ad0bfe2039f12b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HostTransform: {fileID: 0}
-  DistanceScale: 2
-  RotationMode: 0
-  PositionLerpSpeed: 0.2
-  RotationLerpSpeed: 0.2
-  IsDraggingEnabled: 1
 --- !u!1 &1605628932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,7 +3766,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132602, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_Name
-      value: PezzoMeccanico (2)
+      value: PezzoMeccanico_2
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -3827,7 +3831,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.04639
+      value: 0.046389997
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -3854,6 +3858,11 @@ PrefabInstance:
       propertyPath: spawner
       value: 
       objectReference: {fileID: 274016322}
+    - target: {fileID: 8603307294315132580, guid: dfa8241e689cad84fa98f33175ec3089,
+        type: 3}
+      propertyPath: masterController
+      value: 
+      objectReference: {fileID: 553070462}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa8241e689cad84fa98f33175ec3089, type: 3}
 --- !u!1 &2090230778
@@ -3980,9 +3989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cc08c86abe52f4db850268397fe3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manopola: {fileID: 1288209631}
-  UISwitch: {fileID: 819771889}
-  UIStart: {fileID: 297225214}
+  masterController: {fileID: 553070462}
+  switchLever: {fileID: 1288209631}
   rotation: 35
 --- !u!65 &2098275932
 BoxCollider:
@@ -4050,7 +4058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098275930}
   m_LocalRotation: {x: 0, y: -0.1595022, z: 0, w: 0.9871976}
-  m_LocalPosition: {x: -0.1862, y: -0.095, z: 0.1016}
+  m_LocalPosition: {x: -0.1922, y: -0.0881, z: 0.0996}
   m_LocalScale: {x: 0.035830483, y: 0.04769279, z: 0.04294325}
   m_Children: []
   m_Father: {fileID: 447611091}
@@ -4293,7 +4301,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132602, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_Name
-      value: PezzoMeccanico
+      value: PezzoMeccanico_0
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -4333,7 +4341,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -4353,7 +4361,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.046393525
+      value: 0.04639352
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -4363,7 +4371,7 @@ PrefabInstance:
     - target: {fileID: 8603307294315132581, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.046393525
+      value: 0.04639352
       objectReference: {fileID: 0}
     - target: {fileID: 8603307294315132580, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
@@ -4385,6 +4393,11 @@ PrefabInstance:
       propertyPath: spawner
       value: 
       objectReference: {fileID: 274016322}
+    - target: {fileID: 8603307294315132580, guid: dfa8241e689cad84fa98f33175ec3089,
+        type: 3}
+      propertyPath: masterController
+      value: 
+      objectReference: {fileID: 553070462}
     - target: {fileID: 8603307294315132579, guid: dfa8241e689cad84fa98f33175ec3089,
         type: 3}
       propertyPath: m_Mass

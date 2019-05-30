@@ -37,7 +37,7 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isWorking && isSwitchOn && PezzoController.pezziCaricati <= 0 && coRoutineStarted)
+        if (isWorking && isSwitchOn && MasterController.loadedPieces <= 0 && coRoutineStarted)
         {
             StopCoroutine(ConsumaPezzi());
 
@@ -47,7 +47,7 @@ public class SceneController : MonoBehaviour
             coRoutineStarted = false;
         }
 
-        if ((isWorking && PezzoController.pezziCaricati > 0 && alarmLight.activeSelf) || !isSwitchOn)
+        if ((isWorking && MasterController.loadedPieces > 0 && alarmLight.activeSelf) || !isSwitchOn)
             alarmLight.SetActive(false);
 
         else if (isWorking && !coRoutineStarted && !isErrorCentralina && !isErrorAria)
@@ -57,7 +57,7 @@ public class SceneController : MonoBehaviour
             coRoutineStarted = true;
         }
 
-        else if (PezzoController.pezziCaricati <= 0)
+        else if (MasterController.loadedPieces <= 0)
             UIPezzi.SetActive(true);
     }
 

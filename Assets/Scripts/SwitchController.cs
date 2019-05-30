@@ -3,56 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************************* CONTROLLER DELL'INTERRUTTORE PRINCIPALE D'ACCENSIONE *************************************/
+
 public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
 {
-    [SerializeField] GameObject manopola;
-    [SerializeField] GameObject UISwitch;
-    [SerializeField] GameObject UIStart;
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
 
-    [SerializeField] float rotation = 35f;
+    // Campi riservati a questo script
+    [SerializeField] GameObject switchLever;
+    [SerializeField] float rotation = 45f;
 
-    AudioSource audio;
+    MasterController master;
+    AudioSource sound;
 
-    void Start()
+    void Awake()
     {
-        audio = gameObject.GetComponent<AudioSource>();
+        master = masterController.GetComponent<MasterController>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
+    // Quando l'utente tappa sull'oggetto...
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        Debug.Log("Cliccato");
+        actionSwitch(SceneController.isSwitchOn);
 
-        if(!SceneController.isSwitchOn)
-        {
-            manopola.transform.Rotate(new Vector3(0f, 0f, rotation), Space.Self);
-            SceneController.isSwitchOn = true;
-
-            UISwitch.SetActive(false);
-            UIStart.SetActive(true);
-
-            audio.Play();
-        }
-
-        else
-        {
-            manopola.transform.Rotate(new Vector3(0f, 0f, -rotation), Space.Self);
-            SceneController.isSwitchOn = false;
-            SceneController.isWorking = false;
-
-            UIStart.SetActive(false);
-            UISwitch.SetActive(true);
-
-            audio.Play();
-        }
+        sound.Play();
     }
 
-    public void OnFocusEnter()
-    {
-        //throw new System.NotImplementedException();
-    }
+    public void OnFocusEnter() { /*throw new System.NotImplementedException();*/ }
+    public void OnFocusExit() { /*throw new System.NotImplementedException();*/ }
 
-    public void OnFocusExit()
+    //********** METODI PRIVATI **********
+
+    // Metodo responsabile della logica dell'interruttore
+    void actionSwitch(bool isActivated)
     {
-        //throw new System.NotImplementedException(); 
+        float angleOfRotation = rotation;
+
+        if (isActivated)
+            angleOfRotation = -angleOfRotation;
+
+        // Ruota l'interruttore
+        switchLever.transform.Rotate(new Vector3(0f, 0f, angleOfRotation), Space.Self);
+
+        // Agisci sull'interfaccia
+        master.switchUI.SetActive(isActivated);
+        master.startUI.SetActive(!isActivated);
+
+        // Comunica i cambiamenti al manager
+        SceneController.isSwitchOn = !SceneController.isSwitchOn;
     }
 }
