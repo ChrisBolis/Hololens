@@ -16,10 +16,10 @@ public class StartController : MonoBehaviour, IInputClickHandler, IFocusable
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        if(MacchinarioController.isSwitchOn)
+        if(SceneController.isSwitchOn)
         {
             Debug.Log("Acceso!");
-            MacchinarioController.isWorking = true;
+            SceneController.isWorking = true;
             UIStart.SetActive(false);
         }
 

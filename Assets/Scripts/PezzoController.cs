@@ -15,7 +15,7 @@ public class PezzoController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Caricatore" && pezziCaricati < 13)
+        if(collision.gameObject.tag == "Caricatore" && pezziCaricati <= 13)
         {
             Debug.Log("Caricato!");
 
@@ -40,15 +40,16 @@ public class PezzoController : MonoBehaviour
             UIPezzi.SetActive(false);
     }
 
-    public static void ScaricaPezzo()
+    public static int ScaricaPezzo()
     {
-        if (pezziCaricati >= 0)
+        if (pezziCaricati > 0)
         {
             Destroy(elencoPezzi[pezziCaricati - 1]);
             pezziCaricati--;
 
-            Debug.Log("Pezzo scaricato!");
-            Debug.Log($"Pezzi rimasti: {pezziCaricati}");
+            SceneController.audio.Play();
         }
+
+        return pezziCaricati;
     }
 }

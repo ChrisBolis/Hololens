@@ -6,35 +6,50 @@ using System;
 
 public class Aria : MonoBehaviour, IInputClickHandler, IFocusable
 {
-    [SerializeField] GameObject Pannello;
+    [SerializeField] GameObject UIStato, testo, UIErrore;
+    [SerializeField] float interval = 0.5f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    [SerializeField] string messaggioDefault = "Pressione regolare";
 
-    }
+    //[SerializeField] GameObject statoAria;
+    //[SerializeField] string messaggioDefaultAria = "Pressione regolare";
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
+    bool isFocused = false;
+    
     public void OnInputClicked(InputClickedEventData eventData)
     {
         Debug.Log("Aria");
-        Pannello.GetComponent<PannelloController>().CheckAria();
+        SceneController.isErrorAria = false;
 
-        //eventData.Use(); // Mark the event as used, so it doesn't fall through to other handlers.
+        testo.GetComponent<TextMesh>().text = messaggioDefault;
+
+        UIErrore.SetActive(false);
     }
 
     public void OnFocusEnter()
     {
-        //throw new NotImplementedException();
+        isFocused = true;
+        StartCoroutine(MostraInterfaccia());
     }
 
     public void OnFocusExit()
     {
-        //throw new NotImplementedException();
+        isFocused = false;
+        StartCoroutine(NascondiInterfaccia());
+    }
+
+    IEnumerator MostraInterfaccia()
+    {
+        yield return new WaitForSeconds(interval);
+        if (isFocused)
+            UIStato.SetActive(true);
+
+    }
+    IEnumerator NascondiInterfaccia()
+    {
+        yield return new WaitForSeconds(interval);
+        if (!isFocused)
+            UIStato.SetActive(false);
     }
 }

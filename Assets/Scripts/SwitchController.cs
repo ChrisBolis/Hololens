@@ -22,10 +22,10 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
     {
         Debug.Log("Cliccato");
 
-        if(!MacchinarioController.isSwitchOn)
+        if(!SceneController.isSwitchOn)
         {
             manopola.transform.Rotate(new Vector3(0f, 0f, rotation), Space.Self);
-            MacchinarioController.isSwitchOn = true;
+            SceneController.isSwitchOn = true;
 
             UISwitch.SetActive(false);
             UIStart.SetActive(true);
@@ -36,8 +36,8 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
         else
         {
             manopola.transform.Rotate(new Vector3(0f, 0f, -rotation), Space.Self);
-            MacchinarioController.isSwitchOn = false;
-            MacchinarioController.isWorking = false;
+            SceneController.isSwitchOn = false;
+            SceneController.isWorking = false;
 
             UIStart.SetActive(false);
             UISwitch.SetActive(true);
