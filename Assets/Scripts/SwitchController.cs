@@ -17,7 +17,7 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
     MasterController master;
     AudioSource sound;
 
-    void Awake()
+    void Start()
     {
         master = masterController.GetComponent<MasterController>();
         sound = gameObject.GetComponent<AudioSource>();
@@ -27,7 +27,6 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
     public void OnInputClicked(InputClickedEventData eventData)
     {
         actionSwitch(SceneController.isSwitchOn);
-
         sound.Play();
     }
 

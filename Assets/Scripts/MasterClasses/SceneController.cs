@@ -2,119 +2,94 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************************* CONTROLLER PER LA GESTIONE DELLA LOGICA DI FUNZIONAMENTO DEL MACCHINARIO *************************************/
+
 public class SceneController : MonoBehaviour
 {
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
+
     public int interval = 5;
 
-    // Variabile globali che controllano lo stato del macchinario
-    public static bool isWorking = false;
-    public static bool isSwitchOn = false;
-    public static bool isErrorAria = false;
-    public static bool isErrorCentralina = false;
-    //public static bool isError = false;
+    // Variabili globali che controllano lo stato del macchinario
+    public static bool isWorking = false, isSwitchOn = false, isAirError = false, isPowerError = false;
 
-    [SerializeField] GameObject alarmLight, UIPezzi;
-    [SerializeField] GameObject caricatore;
+    // Campi riservati a questo script
+    MasterController master;
+    public static AudioSource usePieceSound;
 
-    //pannello di errore generale
-    [SerializeField] GameObject UIErrori;
-
-    [SerializeField] GameObject statoAria;
-    [SerializeField] string messaggioErroreAria = "Pressione aria troppo bassa";
-
-    [SerializeField] GameObject statoCentralina;
-    [SerializeField] string messaggioErroreCentralina = "Malfunzionamento interno";
-
-    public static AudioSource audio;
-
-    bool coRoutineStarted = false;
+    bool isStarted = false;
 
     void Start()
     {
-        audio = caricatore.GetComponent<AudioSource>();
+        master = masterController.GetComponent<MasterController>();
+        usePieceSound = master.loader.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isWorking && isSwitchOn && MasterController.loadedPieces <= 0 && coRoutineStarted)
-        {
-            StopCoroutine(ConsumaPezzi());
+        if (!isSwitchOn)
+            ShutDown();
 
-            alarmLight.SetActive(true);
+        if ((MasterController.loadedPieces <= 0 || isPowerError || isAirError) && isWorking)
+            GenerateError();
 
-            isWorking = false;
-            coRoutineStarted = false;
-        }
-
-        if ((isWorking && MasterController.loadedPieces > 0 && alarmLight.activeSelf) || !isSwitchOn)
-            alarmLight.SetActive(false);
-
-        else if (isWorking && !coRoutineStarted && !isErrorCentralina && !isErrorAria)
-        {
-            StartCoroutine(ConsumaPezzi());
-
-            coRoutineStarted = true;
-        }
-
-        else if (MasterController.loadedPieces <= 0)
-            UIPezzi.SetActive(true);
+        else if (isWorking && !isStarted)
+            StartCoroutine(UsePiece());
     }
 
-    IEnumerator ConsumaPezzi()
+    IEnumerator UsePiece()
     {
-        while (isWorking && !isErrorAria && !isErrorCentralina)
+        isStarted = true;
+        master.switchLight(false);
+
+        yield return new WaitForSeconds(interval);
+
+        PezzoController.ScaricaPezzo();
+        usePieceSound.Play();
+
+        int extracted = Random.Range(1, 100);
+
+        // Generazione errore (40%)...
+        if (extracted > 0 && extracted <= 41)
         {
-            yield return new WaitForSeconds(interval);
+            master.errorUI.SetActive(true);
 
-            bool IsFinished = PezzoController.ScaricaPezzo() == 0;
-
-            int extracted = Random.Range(1, 100);
-            Debug.Log(extracted);
-            //generazione errore 40% possibilità totale errore...
-            if (extracted > 0 && extracted <= 41)
+            //...Errore aria (20%)
+            if (extracted > 0 && extracted <= 20)
             {
-                alarmLight.SetActive(true);
-                UIErrori.SetActive(true);
-
-                coRoutineStarted = false;
-                isWorking = false;
-
-                //...20% aria
-                if (extracted > 0 && extracted <= 20)
-                {
-                    statoAria.GetComponent<TextMesh>().text = messaggioErroreAria;
-                    isErrorAria = true;
-                    
-                }
-                // ...20% centralina
-                else if (extracted > 20 && extracted <= 41)
-                {
-                    statoCentralina.GetComponent<TextMesh>().text = messaggioErroreCentralina;
-                    isErrorCentralina = true;    
-                }
-
-                StopCoroutine(ConsumaPezzi());
+                isAirError = true;
+                master.airStatus.GetComponent<TextMesh>().text = master.airErrorMsg;
             }
 
-            if(IsFinished)
+            // ...Errore centralina (20%)
+            else if (extracted > 20 && extracted <= 41)
             {
-                alarmLight.SetActive(true);
-                UIPezzi.SetActive(true);
-
-                coRoutineStarted = false;
-                isWorking = false;
-
-                StopCoroutine(ConsumaPezzi());
+                isPowerError = true;
+                master.powerStatus.GetComponent<TextMesh>().text = master.powerErrorMsg;
             }
         }
+
+        isStarted = false;
     }
 
-    //public void SolveErrors()
-    //{
-    //    isError = false;
-    //    UIErrori.SetActive(false);
-    //    statoAria.GetComponent<TextMesh>().text = messaggioDefaultAria;
-    //    //statoCentralina.GetComponent<TextMesh>().text = messaggioDefaultCentralina;
-    //}
+    //********** METODI PRIVATI **********
+
+    void GenerateError()
+    {
+        master.switchLight(true);
+        isWorking = false;
+
+        isStarted = false;
+    }
+
+    void ShutDown()
+    {
+        isWorking = false;
+        isStarted = false;
+        master.switchLight(false);
+
+        StopAllCoroutines();
+    }
 }

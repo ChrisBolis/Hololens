@@ -28,7 +28,7 @@ public class Aria : MonoBehaviour, IInputClickHandler, IFocusable
     public void OnInputClicked(InputClickedEventData eventData)
     {
         // ...risolvi l'errore...
-        SceneController.isErrorAria = false;
+        SceneController.isAirError = false;
         
         // ...e sistema l'interfaccia
         text.GetComponent<TextMesh>().text = defaultMsg;
@@ -54,7 +54,6 @@ public class Aria : MonoBehaviour, IInputClickHandler, IFocusable
 
         if (isFocused)
             statusUI.SetActive(true);
-
     }
 
     IEnumerator HideInterface()

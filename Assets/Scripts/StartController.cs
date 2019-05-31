@@ -3,14 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************************* CONTROLLER PER LA GESTIONE DEL TASTO START *************************************/
+
 public class StartController : MonoBehaviour, IInputClickHandler, IFocusable
 {
-    [SerializeField] GameObject UIStart;
+    // Classe master a cui fanno riferimento tutti i GameObject ricorrenti
+    [SerializeField] GameObject masterController;
 
+    MasterController master;
     AudioSource audio;
 
     void Start()
     {
+        master = masterController.GetComponent<MasterController>();
         audio = gameObject.GetComponent<AudioSource>();
     }
 
@@ -18,9 +23,8 @@ public class StartController : MonoBehaviour, IInputClickHandler, IFocusable
     {
         if(SceneController.isSwitchOn)
         {
-            Debug.Log("Acceso!");
             SceneController.isWorking = true;
-            UIStart.SetActive(false);
+            master.startUI.SetActive(false);
         }
 
         audio.Play();

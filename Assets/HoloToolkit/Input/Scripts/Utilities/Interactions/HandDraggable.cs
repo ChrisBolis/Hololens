@@ -49,7 +49,8 @@ namespace HoloToolkit.Unity.InputModule
 
         public bool IsDraggingEnabled = true;
 
-        private bool isDragging;
+        public bool isDragging; // Modificato da Christopher Bolis --> Necessario accesso alla variabile (Changelog: cambiato modificatore d'accesso da private a public)
+
         private bool isGazed;
         private Vector3 objRefForward;
         private Vector3 objRefUp;

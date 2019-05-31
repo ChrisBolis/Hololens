@@ -5,8 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/HeadsetAdjustment.unity
+    guid: 6328c96cc619a8b41a866766f9513e17
   - enabled: 1
     path: Assets/Scenes/Main.unity
+    guid: e46d4a7913c0da242beb6380d14e02c9
+  - enabled: 0
+    path: Assets/Scenes/OldMain.unity
     guid: 0c43e606663a0b94d9b9753c0996b422
   - enabled: 0
     path: 

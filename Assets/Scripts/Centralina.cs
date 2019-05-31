@@ -28,7 +28,7 @@ public class Centralina : MonoBehaviour, IInputClickHandler, IFocusable
     public void OnInputClicked(InputClickedEventData eventData)
     {
         // ...risolvi l'errore...
-        SceneController.isErrorCentralina = false;
+        SceneController.isPowerError = false;
 
         // ...e sistema l'interfaccia
         testo.GetComponent<TextMesh>().text = messaggioDefault;

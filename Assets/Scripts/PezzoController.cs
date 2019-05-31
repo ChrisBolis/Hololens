@@ -19,6 +19,16 @@ public class PezzoController : MonoBehaviour
         master = masterController.GetComponent<MasterController>();
     }
 
+    void Update()
+    {
+        // Se il pezzo meccanico cade troppo in basso...
+        if (Vector3.Distance(gameObject.transform.position, master.spawner.transform.position) > 10f && !gameObject.GetComponent<HandDraggable>().isDragging)
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; // ...fermalo...
+            gameObject.transform.position = master.spawner.transform.position; // ...e riportalo allo spawner
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Caricatore" && MasterController.loadedPieces <= 13)
@@ -32,17 +42,13 @@ public class PezzoController : MonoBehaviour
 
     //********** METODI PUBBLICI **********
 
-    public static int ScaricaPezzo()
+    public static void ScaricaPezzo()
     {
         if (MasterController.loadedPieces > 0)
         {
             Destroy(piecesArray[MasterController.loadedPieces - 1]);
             MasterController.loadedPieces--;
-
-            SceneController.audio.Play();
         }
-
-        return MasterController.loadedPieces;
     }
 
     //********** METODI PRIVATI **********
@@ -61,5 +67,8 @@ public class PezzoController : MonoBehaviour
         // ...e registralo
         piecesArray[MasterController.loadedPieces] = gameObject;
         MasterController.loadedPieces++;
+
+        // Disattiva il pannello dell'UI
+        master.piecesUI.SetActive(false);
     }
 }
