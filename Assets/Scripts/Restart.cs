@@ -11,8 +11,9 @@ public class Restart : MonoBehaviour, IInputClickHandler
     public void OnInputClicked(InputClickedEventData eventData)
     {
         foreach (GameObject o in Object.FindObjectsOfType<GameObject>())        
-            Destroy(o);    
+            Destroy(o);
 
+        SceneManager.UnloadSceneAsync("MacchinarioScene");
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
     }
 }

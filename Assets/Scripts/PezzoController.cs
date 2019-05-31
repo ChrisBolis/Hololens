@@ -70,5 +70,6 @@ public class PezzoController : MonoBehaviour
 
         // Disattiva il pannello dell'UI
         master.piecesUI.SetActive(false);
+        master.pieceArrow.SetActive(false);
     }
 }

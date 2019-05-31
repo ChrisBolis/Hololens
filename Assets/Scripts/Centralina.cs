@@ -33,6 +33,7 @@ public class Centralina : MonoBehaviour, IInputClickHandler, IFocusable
         // ...e sistema l'interfaccia
         testo.GetComponent<TextMesh>().text = messaggioDefault;
         master.errorUI.SetActive(false);
+        master.powerPieceArrow.SetActive(false);
     }
 
     public void OnFocusEnter()

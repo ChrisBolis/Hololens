@@ -61,6 +61,7 @@ public class SceneController : MonoBehaviour
             {
                 isAirError = true;
                 master.airStatus.GetComponent<TextMesh>().text = master.airErrorMsg;
+                master.airPieceArrow.SetActive(true);
             }
 
             // ...Errore centralina (20%)
@@ -68,6 +69,7 @@ public class SceneController : MonoBehaviour
             {
                 isPowerError = true;
                 master.powerStatus.GetComponent<TextMesh>().text = master.powerErrorMsg;
+                master.powerPieceArrow.SetActive(true);
             }
         }
 

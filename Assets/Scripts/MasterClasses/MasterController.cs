@@ -19,6 +19,7 @@ public class MasterController : MonoBehaviour
 
     // Grafica
     public GameObject alarmLight;
+    public GameObject airPieceArrow, powerPieceArrow, pieceArrow;
 
     // Materiali
     [SerializeField] Material alarmOFFMaterial, alarmONMaterial;

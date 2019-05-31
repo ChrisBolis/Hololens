@@ -33,6 +33,7 @@ public class Aria : MonoBehaviour, IInputClickHandler, IFocusable
         // ...e sistema l'interfaccia
         text.GetComponent<TextMesh>().text = defaultMsg;
         master.errorUI.SetActive(false);
+        master.airPieceArrow.SetActive(false);
     }
 
     public void OnFocusEnter()
