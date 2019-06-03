@@ -67,6 +67,12 @@ public class PezzoController : MonoBehaviour
         // ...e registralo
         piecesArray[MasterController.loadedPieces] = gameObject;
         MasterController.loadedPieces++;
+        if (!master.loadedPiece)
+        {
+            master.switchArrow.SetActive(true);
+            master.switchUI.SetActive(true);
+            master.loadedPiece = true;
+        }
 
         // Disattiva il pannello dell'UI
         master.piecesUI.SetActive(false);

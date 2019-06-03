@@ -38,6 +38,9 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
     // Metodo responsabile della logica dell'interruttore
     void actionSwitch(bool isActivated)
     {
+        if (!master.loadedPiece)
+            return;
+
         float angleOfRotation = rotation;
 
         if (isActivated)
@@ -48,7 +51,10 @@ public class SwitchController : MonoBehaviour, IInputClickHandler, IFocusable
 
         // Agisci sull'interfaccia
         master.switchUI.SetActive(isActivated);
+        master.switchArrow.SetActive(isActivated);
+
         master.startUI.SetActive(!isActivated);
+        master.buttonArrow.SetActive(!isActivated);
 
         // Comunica i cambiamenti al manager
         SceneController.isSwitchOn = !SceneController.isSwitchOn;

@@ -25,6 +25,7 @@ public class StartController : MonoBehaviour, IInputClickHandler, IFocusable
         {
             SceneController.isWorking = true;
             master.startUI.SetActive(false);
+            master.buttonArrow.SetActive(false);
         }
 
         audio.Play();

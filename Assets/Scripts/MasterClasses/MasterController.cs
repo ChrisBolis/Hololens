@@ -19,13 +19,14 @@ public class MasterController : MonoBehaviour
 
     // Grafica
     public GameObject alarmLight;
-    public GameObject airPieceArrow, powerPieceArrow, pieceArrow;
+    public GameObject airPieceArrow, powerPieceArrow, pieceArrow, switchArrow, buttonArrow;
 
     // Materiali
     [SerializeField] Material alarmOFFMaterial, alarmONMaterial;
 
     // Campi statici
     [HideInInspector] public static int loadedPieces = 0;
+    [HideInInspector] public bool loadedPiece = false;
 
     //********** METODI PUBBLICA **********
 

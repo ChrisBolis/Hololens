@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HoloToolkit.Unity.InputModule;
+using HoloToolkit.Unity.SpatialMapping;
 
 public class Restart : MonoBehaviour, IInputClickHandler
 {
@@ -15,5 +16,7 @@ public class Restart : MonoBehaviour, IInputClickHandler
 
         SceneManager.UnloadSceneAsync("MacchinarioScene");
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        SpatialMappingManager.Instance.StartObserver();
+        SpatialMappingManager.Instance.DrawVisualMeshes = true;
     }
 }
